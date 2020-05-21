@@ -10,9 +10,11 @@ using cw5.Models;
 using cw5.DTOs.Requests;
 using cw5.DTOs.Responses;
 using cw5.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cw5.Controllers
 {
+    [Authorize(Roles = "employee")]
     [ApiController]
     [Route("api/enrollments")]
     public class EnrollmentsController : ControllerBase

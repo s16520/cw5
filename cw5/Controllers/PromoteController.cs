@@ -11,14 +11,17 @@ using cw5.DTOs.Requests;
 using cw5.DTOs.Responses;
 using cw5.Services;
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cw5.Controllers
 {
-    [ApiController]
     [Route("api/enrollments/promotions")]
+    [Authorize(Roles = "employee")]
+    [ApiController]
+    
     public class PromoteControlle : ControllerBase
     {
-
+        
         private const string ConString = "Data Source=db-mssql;Initial Catalog=s16520;Integrated Security=True";
         private IStudentDbService _dbService;
 
@@ -30,6 +33,7 @@ namespace cw5.Controllers
         [HttpPost]
         public IActionResult PromoteStudents(PromotionRequest request)
         {
+           
             var response = _dbService.PromoteStudents(request);
 
             switch (response.Type)

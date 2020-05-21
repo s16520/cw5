@@ -6,6 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using cw5.DAL;
 using cw5.Models;
+using cw5.DTOs.Requests;
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cw5.Controllers
 {
@@ -17,10 +24,13 @@ namespace cw5.Controllers
 
         private IStudentsDal _dbService;
 
-        public StudentsController(IStudentsDal dbService)
+        public IConfiguration Configuration { get; set; }
+        public StudentsController(IStudentsDal dbService, IConfiguration configuration)
         {
             _dbService = dbService;
+            Configuration = configuration;
         }
+
 
         [HttpGet]
         public IActionResult GetStudents([FromServices] IStudentsDal dbService)
